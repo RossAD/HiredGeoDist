@@ -1,0 +1,24 @@
+{
+  "name": "hiredgeodist",
+  "version": "1.0.0",
+  "description": "simple geo location app",
+  "main": "keys.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RossAD/HiredGeoDist.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RossAD/HiredGeoDist/issues"
+  },
+  "homepage": "https://github.com/RossAD/HiredGeoDist#readme",
+  "devDependencies": {
+    "eslint": "^3.8.1",
+    "eslint-config-airbnb": "^12.0.0",
+    "eslint-plugin-react": "^6.4.1"
+  }
+}
