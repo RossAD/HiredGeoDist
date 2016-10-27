@@ -132,10 +132,8 @@ function geoLoc(arrOfCities) {
           var shortObj = shortestDist(cityArr);
           // Return result of shortestDist function
           return console.log(
-            // "Shortest City Pair:" +
             "\n" + shortObj["cityA"] + 
             "\n" + shortObj["cityB"] 
-            //+ "\nDistance: " +  shortObj["distance"] + " miles"
           );
 
         } catch (e) {
