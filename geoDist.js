@@ -11,14 +11,16 @@ var cityArray = [
   "Melbourne,Australia", "Paris,France", "Singapore,Singapore"
 ];
 
-
+// Main function to return the two closest cities in an array of cities
 function geoLoc(arrOfCities) {
   
   // Function to generate query string to send MapQuest API
   function bulkQry(arr) {
     resultString = "";
     arr.forEach(function(city) {
+      // For any cities with a space in name replace with underscore
       let temp = city.replace(/\s+/g, '_');
+      // Location query per MapQuest API
       resultString = resultString.concat('&location='+temp);
     })
     return resultString;
@@ -26,7 +28,7 @@ function geoLoc(arrOfCities) {
 
   /*
    *Function to get distance in miles between two geographic
-   *points(Adapted from StackOverflow) accounting for curvature of
+   *points(Adapted from StackOverflow post) accounting for curvature of
    *the Earth.
    */
   function getDist(lat1, lon1, lat2, lon2) {
@@ -122,8 +124,11 @@ function geoLoc(arrOfCities) {
       res.on('data', function(chunk) {rawData += chunk});
       res.on('end', function(){
         try {
+          // Parse JSON to object
           var locData = JSON.parse(rawData);
+          // Generate array of City/Location objects
           var cityArr = geoCity(locData);
+          // Get object containing cities with the shortest distance
           var shortObj = shortestDist(cityArr);
           // Return result of shortestDist function
           return console.log(
