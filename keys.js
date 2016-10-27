@@ -1,5 +1,5 @@
 const keys = {
-  "mapQuest" : "wq598rRF6YKsGCWEeN2cRo0mhdSXkwXR"
+  "mapQuest" : "YOUR_MAPQUEST_API_KEY"
 }
 
 module.exports = keys;

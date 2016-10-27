@@ -13,9 +13,6 @@ var cityArray = [
 
 
 function geoLoc(arrOfCities) {
-  // Object to hold shortest distance
-    // Objext to hold input cities and latitude and longitude data
-  var cityArr = [];
   
   // Function to generate query string to send MapQuest API
   function bulkQry(arr) {
@@ -27,15 +24,14 @@ function geoLoc(arrOfCities) {
     return resultString;
   }
 
-  var query = bulkQry(arrOfCities);
-  // console.log("Query result: ", query);
-
   /*
    *Function to get distance in miles between two geographic
-   *points(Adapted from StackOverflow)
+   *points(Adapted from StackOverflow) accounting for curvature of
+   *the Earth.
    */
   function getDist(lat1, lon1, lat2, lon2) {
     var R = 3959; // miles
+    // Function to convert lat/lon degrees into radians
     function toRad(degrees) {
       return degrees * (Math.PI/180);
     }
@@ -44,10 +40,13 @@ function geoLoc(arrOfCities) {
     var lat1 = toRad(lat1);
     var lat2 = toRad(lat2);
 
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.sin(dLon/2) * Math.sin(dLon/2) * 
+      Math.cos(lat1) * Math.cos(lat2); 
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
     var d = R * c;
+    // return distance
     return d;
   }
 
@@ -64,7 +63,6 @@ function geoLoc(arrOfCities) {
         ]
       resultArr.push(tempObj);
     })
-    console.log("city object: ", resultArr);
     return resultArr;
   }
 
@@ -86,7 +84,7 @@ function geoLoc(arrOfCities) {
         if((distance < shortObj["distance"]) || (shortObj["distance"] === 0)) {
           shortObj["cityA"] = keyA;
           shortObj["cityB"] = keyB;
-          shortObj["distance"] = Math.round(distance);
+          shortObj["distance"] = Math.ceil(distance); // Round up to next mile
         }
       }
     }
@@ -127,8 +125,10 @@ function geoLoc(arrOfCities) {
           var locData = JSON.parse(rawData);
           var cityArr = geoCity(locData);
           var shortObj = shortestDist(cityArr);
+          // Return result of shortestDist function
           return console.log(
-            "City A: " + shortObj["cityA"] + 
+            "Shortest City Pair:" +
+            "\nCity A: " + shortObj["cityA"] + 
             "\nCity B: " + shortObj["cityB"] + 
             "\nDistance: " +  shortObj["distance"] + " miles"
           );
@@ -142,6 +142,7 @@ function geoLoc(arrOfCities) {
     });
   }
   
+  var query = bulkQry(arrOfCities);
   getGeoBulk(query);
 }
 
