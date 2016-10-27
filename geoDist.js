@@ -84,9 +84,9 @@ function geoLoc(arrOfCities) {
         var keyB = Object.keys(cityB)[0];
         var distance = getDist(cityA[keyA][0], cityA[keyA][1], cityB[keyB][0], cityB[keyB][1]); 
         if((distance < shortObj["distance"]) || (shortObj["distance"] === 0)) {
-          shortObj["cityA"] = keyA;
-          shortObj["cityB"] = keyB;
-          shortObj["distance"] = Math.ceil(distance); // Round up to next mile
+          shortObj["cityA"] = keyA.replace(/_/g, ' ');
+          shortObj["cityB"] = keyB.replace(/_/g, ' ');
+          shortObj["distance"] = Math.ceil(distance);
         }
       }
     }
@@ -132,10 +132,10 @@ function geoLoc(arrOfCities) {
           var shortObj = shortestDist(cityArr);
           // Return result of shortestDist function
           return console.log(
-            "Shortest City Pair:" +
-            "\nCity A: " + shortObj["cityA"] + 
-            "\nCity B: " + shortObj["cityB"] + 
-            "\nDistance: " +  shortObj["distance"] + " miles"
+            // "Shortest City Pair:" +
+            "\n" + shortObj["cityA"] + 
+            "\n" + shortObj["cityB"] 
+            //+ "\nDistance: " +  shortObj["distance"] + " miles"
           );
 
         } catch (e) {
